@@ -11,7 +11,7 @@ ir_sensor_pin = Pin(2, Pin.IN)  # set up the IR sensor pin
 def loop():
     value = sensor.read()
     ir_value = ir_sensor_pin.value()  # read the IR sensor value
-    if value >= threshold and ir_value == 1:  # only trigger if both sensor values are met
+    if value >= threshold or ir_value == 1:  # only trigger if both sensor values are met
         led.value(0)
         solenoid.value(1)
         sleep(1)
