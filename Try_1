@@ -1,0 +1,28 @@
+
+led = Pin(4,Pin.OUT) #D2
+sensor = ADC(0) 
+solenoid = Pin(5,Pin.OUT) #d1
+threshold = 10
+ir_sensor_pin = Pin(2, Pin.IN) #d4  # set up the IR sensor pin
+
+def loop():
+    value = sensor.read()
+    value_1 = ir_sensor_pin.value()
+    # read the IR sensor value
+    if value >= threshold:  # only trigger if both sensor values are met
+        led.value(1)
+        solenoid.value(0)
+        sleep(0.1)
+    elif value_1 == 0:
+        led.value(1)
+        solenoid.value(0)
+        sleep(0.1)
+    else:
+        led.value(0)
+        solenoid.value(1)
+        sleep(0.1)
+led.off()
+solenoid.off()
+
+while True:
+    loop()
